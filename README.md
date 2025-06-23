@@ -60,7 +60,7 @@ nmap -sS 192.168.1.0/24
 ```
 Nmap will now send packets to every potential host on your network and report back which hosts are up and which of their ports are open. This may take a few minutes.
 
-### Step 3: Research common services running on those ports.
+### Step 4: Research common services running on those ports.
 
 🔹 Host: 192.168.174.1
 
