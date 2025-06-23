@@ -31,32 +31,38 @@ Download and install Nmap for your operating system (Windows, macOS, or Linux) f
 
 ### Step 2: Find Your Local IP Range
 
-Before you can scan, you need to know what to scan. You must identify the IP address range of your local network.
+The subnet mask 255.255.255.0 means you're working within a /24 network.
 
-*   **On Windows:**
-    Open Command Prompt (`cmd.exe`) and type:
-    ```sh
-    ipconfig
-    ```
-    Look for your "Wireless LAN adapter" or "Ethernet adapter". Note the `IPv4 Address` (e.g., `192.168.1.15`) and the `Subnet Mask` (e.g., `255.255.255.0`). A subnet mask of `255.255.255.0` means your network range is `192.168.1.0/24`.
+So your local IP range is:
 
-*   **On macOS or Linux:**
-    Open a terminal and type:
-    ```sh
-    ifconfig
-    # or a more modern command:
-    ip a
-    ```
-    Look for your active network interface (e.g., `en0` on Mac, `eth0` or `wlan0` on Linux). Find the `inet` address. If your IP is `192.168.1.15`, your network range is likely `192.168.1.0/24`. The `/24` is CIDR notation for the `255.255.255.0` subnet mask and means Nmap will scan all 256 addresses in that range (from `192.168.1.0` to `192.168.1.255`).
+Copy
+Edit
+192.168.196.0/24
+That means Nmap will scan:
+
+css
+Copy
+Edit
+192.168.196.1 to 192.168.196.254
+▶ Next Step: Run Nmap Scan
+Open your Command Prompt or PowerShell.
+
+Type and run:
+
+bash
+Copy
+Edit
+nmap -sS 192.168.174.131/24
+This performs a TCP SYN scan over all devices on your local network.
 
 ### Step 3: Run the Nmap Scan
 
 Now, run the Nmap scan. We will use the `-sS` flag, which performs a TCP SYN scan (also known as a "half-open" or "stealth" scan). It's fast and less likely to be logged by target systems.
 
-Open your terminal or command prompt and run the following command, **replacing `192.168.1.0/24` with your actual network range**.
+Open your terminal or command prompt and run the following command, **replacing `192.168.174.131/24` with your actual network range**.
 
 ```sh
-nmap -sS 192.168.1.0/24
+nmap -sS 192.168.174.131/24
 ```
 Nmap will now send packets to every potential host on your network and report back which hosts are up and which of their ports are open. This may take a few minutes.
 
