@@ -59,3 +59,43 @@ Open your terminal or command prompt and run the following command, **replacing 
 nmap -sS 192.168.1.0/24
 ```
 Nmap will now send packets to every potential host on your network and report back which hosts are up and which of their ports are open. This may take a few minutes.
+
+### Step 3: Research common services running on those ports.
+
+🔹 Host: 192.168.174.1
+
+Open Ports and Services:
+Port	State	Service	Description
+902	Open	iss-realsecure	VMware ESXi uses this for remote console access (also seen in virtualization).
+912	Open	apex-mesh	Part of VMware or similar network service, not very common outside VMs.
+3306	Open	MySQL	MySQL database service. Agar yeh port open hai, toh yeh database remotely accessible ho sakta hai.
+5357	Open	WSDAPI	Web Services for Devices API – Windows service for device discovery over network.
+
+📌 MAC Address Vendor: VMware – Likely a virtual machine or hypervisor host.
+🔹 Host: 192.168.174.2
+
+Open Port:
+Port	State	Service
+53	Filtered	Domain (DNS)
+
+🔹 Port 53 DNS ke liye hota hai. Iska filtered hone ka matlab hai ki firewall ya IDS is port ko scan ke liye block kar raha hai.
+📌 MAC Vendor: VMware again.
+🔹 Host: 192.168.174.254
+
+All 1000 ports are filtered.
+Yeh machine koi firewall ya security appliance ho sakti hai jo scans ko block kar rahi hai.
+
+📌 MAC Vendor: VMware.
+🔹 Host: 192.168.174.131 (Aapka apna device)
+
+    All ports are closed – iska matlab hai ki abhi aapke system me koi listening service nahi chal rahi.
+
+    MAC address match nahi diya, par latency sabse kam hai (aapki machine).
+
+🔍 Summary of Services:
+Port	Service	Usage
+902	iss-realsecure	VMware remote management / ESXi
+912	apex-mesh	VMware related or specialized service
+3306	MySQL	Open source relational database, remotely exploitable if misconfigured
+5357	WSDAPI	Windows service for device discovery
+53	DNS	Domain Name System (possibly protected by firewall)
